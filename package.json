@@ -1,6 +1,7 @@
 {
   "name": "krummychat",
   "subdomain": "krummychat",
+  "main": "app.js",
   "scripts": {
     "start": "app.js"
   },
