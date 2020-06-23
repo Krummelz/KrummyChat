@@ -1,16 +1,24 @@
 {
   "name": "krummychat",
-  "subdomain": "krummychat",
+  "version": "0.0.16",
+  "description": "Silly little socket.io chat application.",
   "main": "app.js",
   "scripts": {
-    "start": "app.js"
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "0.0.16",
-  "engines": {
-    "node": "0.10.x"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Krummelz/KrummyChat.git"
   },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Krummelz/KrummyChat/issues"
+  },
+  "homepage": "https://github.com/Krummelz/KrummyChat#readme",
   "dependencies": {
-    "socket.io": "0.9.x",
-	  "express" : "3.3.4"
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0"
   }
 }

@@ -1,24 +1,11 @@
-//load the required modules
 var express = require('express');
-var http = require('http');
-
-//init our expressJS application
 var app = express();
-//start an HTTP server with the express application variable
-var server = http.createServer(app);
-
-//set up the socketIO and tell it to listen on the http server
-var io = require('socket.io').listen(server);
+var http = require('http').createServer(app);
+var io = require('socket.io')(http);
 
 //tell express to automatically serve static files in the public directory
 app.use(express.static(__dirname + '/public'));
 
-io.configure(function () {
-    //io.set('transports', [ 'websocket' ]);
-    //if (process.env.IISNODE_VERSION) {
-    io.set('resource', '/public/socket.io');
-    //}
-});
 
 //var heapdump = require('heapdump');
 //var nextMBThreshold = 16;
@@ -34,31 +21,33 @@ io.configure(function () {
 //    }
 //}, 6000 * 2);
 
-io.sockets.on('connection', function (socket) {
-    socket.on('fromClient', function (data) {
-        io.sockets.emit('fromServer', {
+io.on('connection', (socket) => {
+    console.log(' a user connected');
+    socket.on('fromClient', (data) => {
+        io.emit('fromServer', {
             who: data.who,
             message: data.message
         });
     });
-    socket.on("getMemUsage", function () {
+    socket.on("getMemUsage", () => {
         var mem = process.memoryUsage();
-        io.sockets.emit("showMemUsage", {
+        io.emit("showMemUsage", {
             rss: Math.floor(mem.rss / 1000),
             heapTotal: Math.floor(mem.heapTotal / 1000),
             heapUsed: Math.floor(mem.heapUsed / 1000)
         });
-        console.log(mem);
     });
 });
 
-setInterval(function(){
+setInterval(() => {
 
-  io.sockets.emit('fromServer', {
-      who: 'SERVER',
-      message: 'ping'
-  });
+    io.emit('fromServer', {
+        who: 'SERVER',
+        message: 'ping'
+    });
 
-}, 5000);
+}, 60000);
 
-server.listen(process.env.PORT || 8080);
+http.listen(8080, () => {
+    console.log("server listening on port 8080");
+});
