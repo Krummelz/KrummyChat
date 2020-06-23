@@ -1,6 +1,7 @@
 # KrummyChat
 Silly little socket.io chat application.
 
+- Have Node.JS installed
 - Clone the repo
 - Open your command prompt/bash/shell in this directory and type `npm install`
 - Then type `node app.js`
