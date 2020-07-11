@@ -11,8 +11,9 @@ window.addEventListener("load", function () {
     var msgContainer = document.getElementById("msgContainer");
     var btnSend = document.getElementById("sendMessage");
     var lblMemUsage = document.getElementById("lblMemUsage");
+    var lblServerTime = document.getElementById('lblServerTime');
 
-   var socket = io.connect('http://localhost:8080/', {
+   var socket = io.connect('https://krummychat.azurewebsites.net/', {
        resource: 'public/socket.io'
    });
 
@@ -53,6 +54,10 @@ window.addEventListener("load", function () {
 
     socket.on('fromServer', function (data) {
         addMessage(data.who, data.message);
+    });
+    socket.on('serverPing', function (data) {
+        //addMessage(data.who, data.message);
+        lblServerTime.innerHTML = data.message;
     });
     socket.on('connect', function () {
         socket.emit("fromClient", {

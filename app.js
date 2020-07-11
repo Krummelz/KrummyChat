@@ -41,12 +41,17 @@ io.on('connection', (socket) => {
 
 setInterval(() => {
 
-    io.emit('fromServer', {
+    io.emit('serverPing', {
         who: 'SERVER',
-        message: 'ping'
+        message: new Date().toISOString()
     });
 
 }, 60000);
+
+io.emit('serverPing', {
+    who: 'SERVER',
+    message: new Date().toISOString()
+});
 
 http.listen(8080, () => {
     console.log("server listening on port 8080");
