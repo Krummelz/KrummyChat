@@ -1,5 +1,5 @@
 # KrummyChat
-Silly little socket.io chat application.
+Silly little socket.io chat application. https://krummychat.azurewebsites.net/
 
 - Have Node.JS installed
 - Clone the repo
